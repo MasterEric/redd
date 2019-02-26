@@ -1,10 +1,8 @@
 # TODO
 
-This page contains all the calls from the reddit api along with their
-implementations in Redd. The API docs are located
-[**here**](https://www.reddit.com/dev/api).
+This page contains a list of all the API calls available through the Reddit API, along with documentation on their corresponding implementations in Redd. The Reddit API documentation is available [**here**](https://www.reddit.com/dev/api).
 
-## Account
+## account
 
 - **GET /api/v1/me**
   - **Implemented**: [Redd::Models::Session#me](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#me-instance_method)
@@ -15,14 +13,16 @@ implementations in Redd. The API docs are located
 - **PATCH /api/v1/me/prefs**
   - **Implemented**: [Redd::Models::Session#edit_preferences](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#edit_preferences-instance_method)
 - **GET /api/v1/me/trophies**
-  - **Won't Implement**: Already implemented for User.
+  - **Won't Implement**: Utilize `/api/v1/user/<username>/trophies` instead.
 - **GET /prefs/where**
-  - **Partially Implemented**: [Redd::Models::Session](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session) (for friends, blocked, and trusted)
+  - **Partially Implemented**: [Redd::Models::Session](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session) 
+  - Implemented for `friends`, `blocked`, and `trusted`.
+  - Not Implemented for `
 
 ## Captcha
 
 - **GET /api/needs_captcha**
-  - **Won't Implement**: Not necessary for OAuth2 clients
+  - **Won't Implement**: Redd currently only supports OAuth clients, which do not implement captchas.
 
 ## Flair
 
