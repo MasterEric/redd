@@ -16,8 +16,8 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Won't Implement**: Utilize `/api/v1/user/<username>/trophies` instead.
 - **GET /prefs/where**
   - **Partially Implemented**: [Redd::Models::Session](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session) 
-  - Implemented for `friends`, `blocked`, and `trusted`.
-  - Not Implemented for `
+    - Implemented for `friends`, `blocked`, and `trusted`.
+    - Not Implemented for `
 
 ## Captcha
 
