@@ -13,32 +13,45 @@ This page contains a list of all the API calls available through the Reddit API,
 - **PATCH /api/v1/me/prefs**
   - **Implemented**: [Redd::Models::Session#edit_preferences](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#edit_preferences-instance_method)
 - **GET /api/v1/me/trophies**
-  - **Won't Implement**: Utilize `/api/v1/user/<username>/trophies` instead.
-- **GET /prefs/where**
+  - **Won't Implement**: Utilize **GET /api/v1/user/*username*/trophies** instead.
+- **GET /prefs/*where***
   - **Partially Implemented**: [Redd::Models::Session](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session) 
-    - Implemented for `friends`, `blocked`, and `trusted`.
-    - Not Implemented for `
+    - Implemented for *friends*, *blocked*, and *trusted*.
+    - Not Implemented for **.
 
 ## Captcha
 
 - **GET /api/needs_captcha**
   - **Won't Implement**: Redd currently only supports OAuth clients, which do not implement captchas.
 
+## Emoji
+
+- **POST /api/v1/*subreddit*/emoji.json**
+  - **Not Implemented**
+- **DELETE /api/v1/*subreddit*/emoji/*emoji_name***
+  - **Not Implemented**
+- **POST /api/v1/*subreddit*/emoji_asset_upload_s3.json**
+  - **Not Implemented**
+- **POST /api/v1/*subreddit*/emoji_custom_size**
+  - **Not Implemented**
+- **GET /api/v1/*subreddit*/emojis/all**
+  - **Not Implemented**
+
 ## Flair
 
-- **POST [/r/subreddit]/api/clearflairtemplates**
+- **POST [/r/*subreddit*]/api/clearflairtemplates**
   - **Not Implemented**
-- **POST [/r/subreddit]/api/deleteflair**
+- **POST [/r/*subreddit*]/api/deleteflair**
   - **Implemented**: [Redd::Models::Subreddit#delete_flair](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#delete_flair-instance_method)
-- **POST [/r/subreddit]/api/deleteflairtemplate**
+- **POST [/r/*subreddit*]/api/deleteflairtemplate**
   - **Not Implemented**
-- **POST [/r/subreddit]/api/flair**
+- **POST [/r/*subreddit*]/api/flair**
   - **Implemented**: [Redd::Models::Subreddit#set_flair](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#set_flair-instance_method)
-- **POST [/r/subreddit]/api/flairconfig**
+- **POST [/r/*subreddit*]/api/flairconfig**
   - **Not Implemented**
-- **POST [/r/subreddit]/api/flaircsv**
+- **POST [/r/*subreddit*]/api/flaircsv**
   - **Not Implemented**
-- **GET [/r/subreddit]/api/flairlist**
+- **GET [/r/*subreddit*]/api/flairlist**
   - **Implemented**: [Redd::Models::Subreddit#flair_listing](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#flair_listing-instance_method)
 - **POST [/r/subreddit]/api/flairselector**
   - **Not Implemented**
@@ -55,9 +68,9 @@ This page contains a list of all the API calls available through the Reddit API,
 
 ## Reddit Gold
 
-- **POST /api/v1/gold/gild/fullname**
+- **POST /api/v1/gold/gild/*fullname***
   - **Implemented**: [Redd::Models::Gildable#gild](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Gildable#gild-instance_method)
-- **POST /api/v1/gold/give/username**
+- **POST /api/v1/gold/give/*username***
   - **Implemented**: [Redd::Models::User#gift_gold](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/User#gift_gold-instance_method)
 
 ## Links & Comments
@@ -70,7 +83,7 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Implemented**: [Redd::Models::Postable#edit](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Postable#edit-instance_method)
 - **POST /api/hide**
   - **Implemented**: [Redd::Models::Postable#hide](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Postable#hide-instance_method)
-- **GET [/r/subreddit]/api/info**
+- **GET [/r/*subreddit*]/api/info**
   - **Implemented**
     - [Redd::Models::Session#from_fullnames](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#from_fullnames-instance_method)
     - Also implemented as part of lazy loaders.
@@ -120,68 +133,78 @@ This page contains a list of all the API calls available through the Reddit API,
 
 - **GET /api/trending_subreddits**
   - **Implemented**: [Redd::Models::Session#trending_subreddits](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#trending_subreddits-instance_method)
-- **GET /by_id/names**
-  - **Not Implemented**: See `/api/info`.
-- **GET [/r/subreddit]/comments/article**
+- **GET /by_id/*names***
+  - **Partially Implemented**: [Redd::Models::Session#from_fullnames](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#from_fullnames-instance_method)
+    - Implemented for *link*, *comment*, *subreddit*.
+    - Not Implemented for *account*, *message*, *award*.
+- **GET [/r/*subreddit*]/comments/*article***
   - **Implemented**: Part of lazy-loading in Submission and Comment.
-- **GET /duplicates/article**
+- **GET /duplicates/*article***
   - **Implemented**: [Redd::Models::Submission#duplicates](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#duplicates-instance_method)
-- **GET [/r/subreddit]/hot**
+- **GET [/r/*subreddit*]/hot**
   - **Implemented**: [Redd::Models::FrontPage#hot](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/FrontPage#hot-instance_method)
   - **Implemented**: [Redd::Models::Submission#hot](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#hot-instance_method)
-- **GET [/r/subreddit]/new**
+- **GET [/r/*subreddit*]/new**
   - **Implemented**: [Redd::Models::FrontPage#new](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/FrontPage#new-instance_method)
   - **Implemented**: [Redd::Models::Submission#new](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#new-instance_method)
-- **GET [/r/subreddit]/random**
+- **GET [/r/*subreddit*]/random**
   - **Implemented**: [Redd::Models::FrontPage#random](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/FrontPage#random-instance_method)
   - **Implemented**: [Redd::Models::Submission#random](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#random-instance_method)
-- **GET [/r/subreddit]/rising**
+- **GET [/r/*subreddit*]/rising**
   - **Implemented**: [Redd::Models::FrontPage#rising](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/FrontPage#rising-instance_method)
   - **Implemented**: [Redd::Models::Submission#rising](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#rising-instance_method)
-- **GET [/r/subreddit]/sort**
+- **GET [/r/*subreddit*]/*sort***
   - **Implemented**: [Redd::Models::FrontPage#listing](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/FrontPage#listing-instance_method)
+    - Implemented for *top* and *controverital*
   - **Implemented**: [Redd::Models::Submission#listing](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Submission#listing-instance_method)
+    - Implemented for *top* and *controverital*
 
 ## Live Threads
 
-- **GET /api/live/by_id/names**
+- **GET /api/live/by_id/*names***
   - **Not Implemented**
 - **POST /api/live/create**
   - **Not Implemented**
 - **GET /api/live/happening_now**
   - **Not Implemented**
-- **POST /api/live/thread/accept_contributor_invite**
+- **POST /api/live/*thread*/accept_contributor_invite**
   - **Not Implemented**
-- **POST /api/live/thread/close_thread**
+- **POST /api/live/*thread*/close_thread**
   - **Not Implemented**
-- **POST /api/live/thread/delete_update**
+- **POST /api/live/*thread*/delete_update**
   - **Implemented**: [Redd::Models::LiveThread#delete_update](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#delete_update-instance_method)
-- **POST /api/live/thread/edit**
+- **POST /api/live/*thread*/edit**
   - **Implemented**: [Redd::Models::LiveThread#configure](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#configure-instance_method)
-- **POST /api/live/thread/invite_contributor**
+- **POST /api/live/*thread*/hide_discussion**
   - **Not Implemented**
-- **POST /api/live/thread/leave_contributor**
+- **POST /api/live/*thread*/invite_contributor**
   - **Not Implemented**
-- **POST /api/live/thread/report**
+- **POST /api/live/*thread*/leave_contributor**
   - **Not Implemented**
-- **POST /api/live/thread/rm_contributor**
+- **POST /api/live/*thread*/report**
   - **Not Implemented**
-- **POST /api/live/thread/rm_contributor_invite**
+- **POST /api/live/*thread*/rm_contributor**
   - **Not Implemented**
-- **POST /api/live/thread/set_contributor_permissions**
+- **POST /api/live/*thread*/rm_contributor_invite**
   - **Not Implemented**
-- **POST /api/live/thread/strike_update**
+- **POST /api/live/*thread*/set_contributor_permissions**
+  - **Not Implemented**
+- **POST /api/live/*thread*/strike_update**
   - **Implemented**: [Redd::Models::LiveThread#strike_update](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#strike_update-instance_method)
-- **POST /api/live/thread/update**
+- **POST /api/live/*thread*/unhide_discussion**
+  - **Not Implemented**
+- **POST /api/live/*thread*/update**
   - **Implemented**: [Redd::Models::LiveThread#update](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#update-instance_method)
-- **GET /live/thread**
+- **GET /live/*thread***
   - **Implemented**: [Redd::Models::LiveThread#updates](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#updates-instance_method)
-- **GET /live/thread/about**
+- **GET /live/*thread*/about**
   - **Implemented**: [Redd::Models::Session#live_thread](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#live_thread-instance_method)
-- **GET /live/thread/contributors**
+- **GET /live/*thread*/contributors**
   - **Implemented**: [Redd::Models::LiveThread#contributors](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#contributors-instance_method)
-- **GET /live/thread/discussions**
+- **GET /live/*thread*/discussions**
   - **Implemented**: [Redd::Models::LiveThread#discussions](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/LiveThread#discussions-instance_method)
+- **GET /live/*thread*/updates/*update_id***
+  - **Not Implemented**
 
 ## Private Messages
 
@@ -203,21 +226,25 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Implemented**: [Redd::Models::Inboxable#uncollapse](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Inboxable#uncollapse-instance_method)
 - **POST /api/unread_message**
   - **Implemented**: [Redd::Models::Inboxable#mark_as_unread](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Inboxable#mark_as_unread-instance_method)
-- **GET /message/where**
+- **GET /message/*where***
   - **Implemented**: [Redd::Models::Session#my_messages](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#my_messages-instance_method)
+    - Implemented for *inbox*, *unread*, *sent*, *moderator*, *messages*, *comments*, *selfreply*, *mentions*
 
 ## Miscellaneous
 
+- **GET [/r/*subreddit*]/api/saved_media_text**
+  - **Not Implemented**
 - **GET /api/v1/scopes**
   - **Not Implemented**
 
 ## Moderation
 
-- **GET [/r/subreddit]/about/log**
+- **GET [/r/*subreddit*]/about/log**
   - **Implemented**: [Redd::Models::Subreddit#mod_log](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#mod_log-instance_method)
-- **GET [/r/subreddit]/about/location**
+- **GET [/r/*subreddit*]/about/*location***
   - **Implemented**: [Redd::Models::Subreddit#moderator_listing](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#moderator_listing-instance_method)
-- **POST [/r/subreddit]/api/accept_moderator_invite**
+    - Implemented for *reports*, *spam*, *modqueue*, *unmoderated*, *edited*
+- **POST [/r/*subreddit*]/api/accept_moderator_invite**
   - **Implemented**: [Redd::Models::Subreddit#accept_moderator_invite](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#accept_moderator_invite-instance_method)
 - **POST /api/approve**
   - **Implemented**: [Redd::Models::Moderatable#approve](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Moderatable#approve-instance_method)
@@ -237,7 +264,7 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Implemented**: [Redd::Models::Moderatable#unignore_reports](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Moderatable#unignore_reports-instance_method)
 - **POST /api/unmute_message_author**
   - **Implemented**: [Redd::Models::PrivateMessage#unmute_author](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/PrivateMessage#unmute_author-instance_method)
-- **GET [/r/subreddit]/stylesheet**
+- **GET [/r/*subreddit*]/stylesheet**
   - **Implemented**: [Redd::Models::Subreddit#stylesheet](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#stylesheet-instance_method)
 
 ## New Modmail
@@ -248,23 +275,23 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Implemented**: [Redd::Models::Modmail#conversations](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Modmail#conversations-instance_method)
 - **POST /api/mod/conversations**
   - **Implemented**: [Redd::Models::Modmail#create](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Modmail#create-instance_method)
-- **GET /api/mod/conversations/:conversation_id**
+- **GET /api/mod/conversations/*conversation_id***
   - **Implemented**: [Redd::Models::Modmail#get](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Modmail#get-instance_method)
-- **POST /api/mod/conversations/:conversation_id**
+- **POST /api/mod/conversations/*conversation_id***
   - **Implemented**: [Redd::Models::ModmailConversation#reply](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#reply-instance_method)
-- **POST /api/mod/conversations/:conversation_id/archive**
+- **POST /api/mod/conversations/*conversation_id*/archive**
   - **Implemented**: [Redd::Models::ModmailConversation#archive](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#archive-instance_method)
-- **DELETE /api/mod/conversations/:conversation_id/highlight**
+- **DELETE /api/mod/conversations/*conversation_id*/highlight**
   - **Implemented**: [Redd::Models::ModmailConversation#unhighlight](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#unhighlight-instance_method)
-- **POST /api/mod/conversations/:conversation_id/highlight**
+- **POST /api/mod/conversations/*conversation_id*/highlight**
   - **Implemented**: [Redd::Models::ModmailConversation#highlight](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#highlight-instance_method)
-- **POST /api/mod/conversations/:conversation_id/mute**
+- **POST /api/mod/conversations/*conversation_id*/mute**
   - **Implemented**: [Redd::Models::ModmailConversation#mute](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#mute-instance_method)
-- **POST /api/mod/conversations/:conversation_id/unarchive**
+- **POST /api/mod/conversations/*conversation_id*/unarchive**
   - **Implemented**: [Redd::Models::ModmailConversation#unarchive](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#unarchive-instance_method)
-- **POST /api/mod/conversations/:conversation_id/unmute**
+- **POST /api/mod/conversations/*conversation_id*/unmute**
   - **Implemented**: [Redd::Models::ModmailConversation#unmute](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#unmute-instance_method)
-- **GET /api/mod/conversations/:conversation_id/user**
+- **GET /api/mod/conversations/*conversation_id*/user**
   - **Not Implemented**
 - **POST /api/mod/conversations/read**
   - **Partially Implemented**: [Redd::Models::ModmailConversation#mark_as_read](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/ModmailConversation#mark_as_read-instance_method)
@@ -285,45 +312,60 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Not Implemented**
 - **POST /api/multi/rename**
   - **Not Implemented**
-- **GET /api/multi/user/username**
+- **GET /api/multi/user/*username***
   - **Not Implemented**
-- **DELETE /api/multi/multipath**
+- **DELETE /api/multi/*multipath***
   - **Not Implemented**
-- **GET /api/multi/multipath**
+- **DELETE /api/filter/*filterpath***
+  - **Won't Implement**: Utilize **DELETE /api/multi/*multipath*** instead.
+- **GET /api/multi/*multipath***
   - **Implemented**: [Redd::Models::Session#multi](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#multi-instance_method)
-- **POST /api/multi/multipath**
+- **GET /api/filter/*filterpath***
+  - **Won't Implement**: Utilize **GET /api/multi/*multipath*** instead.
+- **POST /api/multi/*multipath***
   - **Not Implemented**
-- **PUT /api/multi/multipath**
+- **POST /api/filter/*filterpath***
+  - **Won't Implement**: Utilize **POST /api/multi/*multipath*** instead.
+- **PUT /api/multi/*multipath***
   - **Not Implemented**
-- **GET /api/multi/multipath/description**
+- **PUT /api/filter/*filterpath***
+  - **Won't Implement**: Utilize **PUT /api/multi/*multipath*** instead.
+- **GET /api/multi/*multipath*/*description***
   - **Not Implemented**
-- **PUT /api/multi/multipath/description**
+- **PUT /api/multi/*multipath*/*description***
   - **Not Implemented**
-- **DELETE /api/multi/multipath/r/srname**
+- **DELETE /api/multi/*multipath*/r/*srname***
   - **Not Implemented**
-- **GET /api/multi/multipath/r/srname**
+- **DELETE /api/filter/*filterpath*/r/*srname***
+  - **Won't Implement**: Utilize **DELETE /api/multi/*multipath*/r/*srname***
+- **GET /api/multi/*multipath*/r/*srname***
   - **Not Implemented**
-- **PUT /api/multi/multipath/r/srname**
+- **GET /api/filter/*filterpath*/r/*srname***
+  - **Won't Implement**: Utilize **GET /api/multi/*multipath*/r/*srname***
+- **PUT /api/multi/*multipath*/r/*srname***
   - **Not Implemented**
+- **PUT /api/filter/*filterpath*/r/*srname***
+  - **Won't Implement**: Utilize **PUT /api/multi/*multipath*/r/*srname***
 
 ## Search
 
-- **GET [/r/subreddit]/search**
+- **GET [/r/*subreddit*]/search**
   - **Implemented**: [Redd::Models::Searchable#search](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Searchable#search-instance_method)
 
 ## Subreddits
 
-- **GET [/r/subreddit]/about/where**
+- **GET [/r/*subreddit*]/about/*where***
   - **Implemented**: [Redd::Models::Subreddit#relationship_listing](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#relationship_listing-instance_method)
-- **POST [/r/subreddit]/api/delete_sr_banner**
+    - Implemented for *banned*, *muted*, *wikibanned*, *contributors*, *wikicontributors*, *moderators*
+- **POST [/r/*subreddit*]/api/delete_sr_banner**
   - **Implemented**: [Redd::Models::Subreddit#delete_image](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#delete_image-instance_method)
-- **POST [/r/subreddit]/api/delete_sr_header**
+- **POST [/r/*subreddit*]/api/delete_sr_header**
   - **Implemented**: [Redd::Models::Subreddit#delete_image](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#delete_image-instance_method)
-- **POST [/r/subreddit]/api/delete_sr_icon**
+- **POST [/r/*subreddit*]/api/delete_sr_icon**
   - **Implemented**: [Redd::Models::Subreddit#delete_image](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#delete_image-instance_method)
-- **POST [/r/subreddit]/api/delete_sr_img**
+- **POST [/r/*subreddit*]/api/delete_sr_img**
   - **Implemented**: [Redd::Models::Subreddit#delete_image](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#delete_image-instance_method)
-- **GET /api/recommend/sr/srnames**
+- **GET /api/recommend/sr/*srnames***
   - **Not Implemented**
 - **POST /api/search_reddit_names**
   - **Not Implemented**
@@ -331,31 +373,31 @@ This page contains a list of all the API calls available through the Reddit API,
   - **Not Implemented**
 - **POST /api/site_admin**
   - **Implemented**: [Redd::Models::Subreddit#modify_settings](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#modify_settings-instance_method)
-- **GET [/r/subreddit]/api/submit_text**
+- **GET [/r/*subreddit*]/api/submit_text**
   - **Won't Implement**: Already covered by the Subreddit model.
 - **GET /api/subreddit_autocomplete**
   - **Not Implemented**
-- **POST [/r/subreddit]/api/subreddit_stylesheet**
+- **POST [/r/*subreddit*]/api/subreddit_stylesheet**
   - **Implemented**: [Redd::Models::Subreddit#update_stylesheet](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#update_stylesheet-instance_method)
 - **GET /api/subreddits_by_topic**
   - **Not Implemented**
 - **POST /api/subscribe**
   - **Implemented**: [Redd::Models::Subreddit#subscribe](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#subscribe-instance_method)
-- **POST [/r/subreddit]/api/upload_sr_img**
+- **POST [/r/*subreddit*]/api/upload_sr_img**
   - **Implemented**: [Redd::Models::Subreddit#upload_image](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#upload_image-instance_method)
-- **GET /r/subreddit/about**
+- **GET /r/*subreddit*/about**
   - **Implemented**: [Redd::Models::Session#subreddit](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#subreddit-instance_method)
-- **GET /r/subreddit/about/edit**
+- **GET /r/*subreddit*/about/edit**
   - **Implemented**: [Redd::Models::Subreddit#settings](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Subreddit#settings-instance_method)
-- **GET /r/subreddit/about/rules**
+- **GET /r/*subreddit*/about/rules**
   - **Not Implemented**
-- **GET /r/subreddit/about/traffic**
+- **GET /r/*subreddit*/about/traffic**
   - **Not Implemented**
-- **GET [/r/subreddit]/sidebar**
+- **GET [/r/*subreddit*]/sidebar**
   - **Won't Implement**: Already covered by Subreddit's "description" property.
-- **GET [/r/subreddit]/sticky**
+- **GET [/r/*subreddit*]/sticky**
   - **Not Implemented**
-- **GET /subreddits/mine/where**
+- **GET /subreddits/mine/*where***
   - **Implemented**: [Redd::Models::Session#my_subreddits](http://www.rubydoc.info/github/avinashbot/redd/master/Redd/Models/Session#my_subreddits-instance_method)
 - **GET /subreddits/search**
   - **Not Implemented**
