@@ -182,7 +182,7 @@ module Redd
       end
 
       # Get a listing of all user flairs.
-      # @param params [Hash] a list of params to send with the request
+      # @param options [Hash] a list of params to send with the request
       # @option params [String] :after return results after the given fullname
       # @option params [String] :before return results before the given fullname
       # @option params [Integer] :count the number of items already seen in the listing
@@ -190,7 +190,7 @@ module Redd
       # @option params [:links, :comments] :only the type of objects required
       #
       # @return [Listing<Hash<Symbol, String>>]
-      def flair_listing(**params)
+      def flair_listing(**options)
         options[:t] = options.delete(:time) if options.key?(:time)
         PaginatedListing.new(client, options) do |**req_options|
           res = client.get("/r/#{read_attribute(:display_name)}/api/flairlist", options.merge(req_options)).body
