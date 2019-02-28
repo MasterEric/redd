@@ -38,7 +38,7 @@ module Redd
       # @option options [Integer] :limit the maximum number of items to fetch
       # @yieldparam after [String] the fullname of the item to fetch after
       # @yieldparam limit [Integer] the number of items to fetch (max 100)
-      # @yieldreturn [Listing] the listing to return
+      # @yieldreturn [ModelListing] the listing to return
       def initialize(client, **options, &block)
         raise ArgumentError, 'block must be provided' unless block_given?
 
@@ -46,7 +46,11 @@ module Redd
         @caller = block
         @before = options[:before]
         @after = options[:after]
-        @limit = options[:limit] || 1000
+        # Using an arbitrarily large number, 1 billion, for the default limit.
+        # Listings that have a server-side cache limit of 1000 (like Subreddit.new) will terminate
+        # when an empty response is received after the 1000th item, while listings with no limits
+        # (like Subreddit.flair_listing) will continue until an empty response is received at the end of the list.
+        @limit = options[:limit] || 1000000000
       end
 
       # Go forward through the listing.
