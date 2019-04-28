@@ -203,9 +203,17 @@ module Redd
       # @return [Hash, nil]
       def get_flair(user)
         # We have to do this because reddit returns all flairs if given a nonexistent user
+        # TO-DO: Check if [/r/subreddit]/api/flairselector is the proper way to do this
         flair = flair_listing(name: user.name).first
         return flair if flair && flair[:user].casecmp(user.name).zero?
         nil
+      end
+
+      # Get the list of possible flairs from the user flair selector.
+      #
+      # @return [Array<Hash<Symbol, String>>]
+      def user_flair()
+        client.get("/r/#{read_attribute(:display_name)}/api/user_flair").body
       end
 
       # Remove the flair from a user

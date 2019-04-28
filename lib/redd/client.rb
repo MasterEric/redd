@@ -43,6 +43,7 @@ module Redd
     # @param options [Hash] the parameters to supply
     # @return [Response] the response
     def get(path, options = {})
+      #puts "GET #{path}, #{options.to_json}"
       request(:get, path, params: options)
     end
 
